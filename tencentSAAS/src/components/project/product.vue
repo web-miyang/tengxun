@@ -85,7 +85,6 @@
 				</el-table-column>
 				<el-table-column label="操作" align="center" width="150" >
 					<template slot-scope="scope">
-						
 						<upload v-if='scope.row.status==1' :btn_text='uploadText' :id="scope.row.id" :upload_url='uploadUrl'></upload>
 						<el-button @click="setClick(scope.row,true)" type="primary" plain size="mini">修改</el-button>
 					</template>

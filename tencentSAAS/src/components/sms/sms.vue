@@ -105,8 +105,8 @@
 						</el-input>
 						<p class="msg_tip" >共计{{msgText.length}}字符，需要短信条数：{{Math.ceil(msgText.length/70)}} 
 						</p>
-						<el-form class="post_test" style='display: inline-block;width: 65%;'>
-							<el-form-item label="测试手机号" label-width="35%">
+						<el-form class="post_test" style='display: inline-block;width: 65%;' label-position="top">
+							<el-form-item label="测试手机号">
 								<el-input type="text" v-model="testPhone" placeholder="测试手机号" clearable></el-input>
 							</el-form-item>
 						</el-form>
@@ -209,7 +209,7 @@
 					function(data) {
 						if(data.data.code == 200) {
 							var phone_ = data.data.data;
-							self.phoneArr.concat(phone_);
+              self.phoneArr = self.phoneArr.concat(phone_);
 							self.repeat();
 						} else {
 							self.$message.error(data.data.msg);
@@ -533,6 +533,7 @@
 		padding-bottom: 15px;
 		font-weight: 600;
 	}
+  /deep/ .el-form-item__label{font-size: 10px}
 	.uploadBox {
 		text-align: center;
 	}

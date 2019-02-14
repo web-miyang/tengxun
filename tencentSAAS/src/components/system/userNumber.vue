@@ -45,12 +45,6 @@
 				</el-table-column>
 				<el-table-column prop="rname" label="权限" align="center">
 				</el-table-column>
-				<el-table-column label="绑定微信" align="center">
-					<template slot-scope="scope">
-						<el-button v-if="!get_wx(scope.row.wx_openid)" @click="wechatClick(scope.row)" type="text">去绑定</el-button>
-						<span v-if="get_wx(scope.row.wx_openid)">已绑定</span>
-					</template>
-				</el-table-column>
 				<el-table-column label="账号状态" align="center">
 					<template slot-scope="scope_">
 						<switchEl :scope="scope_" :postUrl='switchPostUrl'></switchEl>
@@ -126,18 +120,6 @@
 			back() {
 				this.getPresonList({});
 				this.createDate.type = !this.createDate.type;
-			},
-			wechatClick(row) {
-				//微信绑定
-				this.$alert("<img src='../../../static/img/u34.png'/>", '绑定微信', {
-					confirmButtonText: '关闭',
-					center: true,
-					dangerouslyUseHTMLString: true,
-					callback: action => {
-						//发送请求查看 账号是否绑定微信
-						row.wechat = !row.wechat;
-					}
-				});
 			},
 			//创建、修改账号
 			setClick(row) {

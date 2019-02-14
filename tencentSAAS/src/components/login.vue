@@ -6,17 +6,11 @@
     	</div>
     	<div class="form-wrap">
     		<div class="form">
-    			<div class="tab-btn" @click="tabClick">
-    				<div class="tabIconWrap">
-    					<div class="tabIcon" :class="loginTab?'':'tabIconCode'">
-    						<img src="../../static/img/u18.png"/>
-    						<img src="../../static/img/u20.png"/>
-    					</div>
-    				</div>
+    			<div class="tab-btn">
+            <img src="../../static/img/u20.png"/>
     			</div>
-    			<div class="form-title">{{loginTab?"账号登录":"微信登录"}}</div>
+    			<div class="form-title">账号登录</div>
     			<div class="loginContent">
-    				<transition name="el-zoom-in-top">
 		        <el-form class="tabN" v-show="loginTab" :label-position="labelPosition" :model="loginForm">
 						  <el-form-item label="登录账号">
 						    <el-input class="user_name" v-model="loginForm.account" placeholder="请输入登录账号"></el-input>
@@ -28,13 +22,6 @@
 						  	<el-button class="sub_btn" type="primary" @click="submitForm()" >登录</el-button>
 						  </el-form-item>
 						</el-form>
-		      </transition>
-    			<transition name="el-zoom-in-bottom">
-		        <div v-show="!loginTab" class="tabC">
-		        	<img src="../../static/img/u34.png"/>
-		        	<p>请使用微信扫描二维码</p>
-		        </div>
-		      </transition>
     			</div>
     		</div>
     	</div>
@@ -79,10 +66,6 @@ export default {
   			}
   		},function(error){
   		});
-	  },
-	  tabClick(){
-	  	var self = this;
-	  	self.loginTab = !self.loginTab;
 	  }
   }
 }
@@ -122,8 +105,5 @@ export default {
 	.sub_btn{width: 100%;font-size: 18px;margin-top:50px;background-color: #23b7e5;border-color: #23b7e5;}
 	/*.sub_btn:hover{opacity:.9}*/
 	.tab-btn{position: absolute;right:29px;top:29px;width: 50px;height: 50px;cursor: pointer;}
-	.tabIconWrap{position: relative;overflow: hidden;width: 100%;height: 100%;}
-	.tabIcon{padding:5px;box-sizing:border-box;position: absolute;top: 0;transition: all .2s linear;}
-	.tabIconCode{top: -50px;}
-	.tabIcon img{width: 100%;height: 45px;}
+	.tabIcon img{width: 45px;height: 45px;}
 </style>
