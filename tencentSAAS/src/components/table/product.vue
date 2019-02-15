@@ -5,23 +5,26 @@
 				<datePicker :models="time" v-on:timeChange='timeChange'></datePicker>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="success" @click="onSubmit">查询</el-button>
+				<el-button type="success" @click="onSubmit" icon="el-icon-search">查询</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" @click="downClick()">下载</el-button>
+				<el-button type="primary" @click="downClick()" icon="el-icon-document">下载</el-button>
 			</el-form-item>
 		</el-form>
-		<div v-for="chart in project_dom_item.style_" :style="{width:chart.width}" class="chartItem">
+		<div id="jpgDom" v-for="chart in project_dom_item.style_" :style="{width:chart.width}" class="chartItem">
 			<p class="chartTitle" style="text-align: center;">{{chart.title}}</p>
-			<div :id="chart.id" :style="{width:'100%',height:height+'px'}/*no*/">
+			<div v-show="!(notdata)" :id="chart.id" :style="{width:'100%',height:height+'px'}/*no*/">
 			</div>
+      <div v-show="notdata" class="noDataText" :style="{width:'100%',height:chart.height}/*no*/">
+        暂无数据
+      </div>
 		</div>
 	</div>
 </template>
 <script>
 	import datePicker from "../public/datePicker"
 	export default {
-		name: "product",
+		name: "produc",
 		components: {
 			datePicker
 		},
@@ -33,6 +36,7 @@
 					e_time: new Date().getFullYear()+'-12-31'
 				},
 				loading:true,
+        notdata:false,
 				height:'600',
 				select_data:{
 					id:"product_users_top",
@@ -65,6 +69,7 @@
 					this.formInline.s_time=this.time[0];
 					this.formInline.e_time=this.time[1];
 				}else{this.formInline.s_time=new Date().getFullYear()+'-01-01';this.formInline.e_time=new Date().getFullYear()+'-12-31';}
+        self.notdata=false;
 				this.getDate();
 			},
 			getDate() {
@@ -88,7 +93,7 @@
 									chartObj.resize();
 								});
 							}else{
-								dom.innerHTML='<div class="noDataText">暂无数据</div>';
+								self.notdata=true;
 							}
 							self.loading=false;
 						} else {

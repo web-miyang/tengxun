@@ -39,8 +39,11 @@
 				<p class="chartListTitle">{{item.name}}</p>
 				<div v-for="chart in item.style_" :style="{width:chart.width}" class="chartItem fl" v-loading="chart.hide">
 					<p class="chartTitle" style="text-align: center;">{{chart.title}}</p>
-					<div :id="chart.id" :style="{width:'100%',height:chart.height}/*no*/">
+					<div v-show="!(chart.notdata)" :id="chart.id" :style="{width:'100%',height:chart.height}/*no*/">
 					</div>
+          <div v-show="chart.notdata" class="noDataText" :style="{width:'100%',height:chart.height}/*no*/">
+            暂无数据
+          </div>
 				</div>
 			</div>
 		</div>
@@ -117,21 +120,24 @@
 							width:'45%',
 							height:'5rem',
 							title:'产品月季度分布',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"product_category_proportion",
 							width:'45%',
 							height:'5rem',
 							title:'产品分类构成',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"product_users_top",
 							width:'90%',
 							height:'7rem',
 							title:'产品报名人数 TOP10',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -142,28 +148,32 @@
 							width:'45%',
 							height:'5rem',
 							title:'用户性别比例',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"users_years",
 							width:'45%',
 							height:'5rem',
 							title:'用户年龄分布',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"users_province",
 							width:'50%',
 							height:'6rem',
 							title:'用户地区分布',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"users_province_top",
 							width:'40%',
 							height:'6rem',
 							title:'用户地区分布 Top10',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				}]
@@ -197,6 +207,7 @@
 			posts(){
 				var get_index=0;
 				this.loading=true;
+        this.set_not_data(this.project_dom_item);
 				this.set_loading_show(this.project_dom_item);
 				this.getDate(this.select_data[0],0);
 			},
@@ -219,6 +230,7 @@
 								self.loading=false;
 							}else{
 								var echarts_list=[];
+                var list = self.project_dom_item;
 								for(var i in select_){
 									var dom = document.getElementById(select_arr[i]);
 									if(data_[select_arr[i]].length!=0){
@@ -227,9 +239,9 @@
 										chartObj.setOption(option_);
 										echarts_list.push(chartObj)
 									}else{
-										dom.innerHTML='<div class="noDataText">暂无数据</div>';
+                    self.set_notdata(select_[i].id,list);
 									}
-									var list = self.project_dom_item;
+
 									self.set_loading_hide(select_[i].id,list);
 								}
 								window.addEventListener("resize", () => {
@@ -266,7 +278,26 @@
 						}
 					}
 				}
-			}
+			},
+      set_not_data(list){
+        for(var i=0;i<list.length;i++){
+          var list_ = list[i].style_;
+          for(var z=0;z<list_.length;z++){
+            list_[z].notdata=false;
+          }
+        }
+      },
+      set_notdata(id,list){
+        for(var i=0;i<list.length;i++){
+          var list_ = list[i].style_;
+          for(var z=0;z<list_.length;z++){
+            if(list_[z].id == id){
+              list_[z].notdata=true;
+              return
+            }
+          }
+        }
+      }
 		}
 	}
 </script>

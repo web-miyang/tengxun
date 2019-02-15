@@ -7,17 +7,28 @@
 					<el-option value='女'>女</el-option>
 				</el-select>
 			</el-form-item>
+      <el-form-item>
+        <el-date-picker
+          v-model="formInline.s_time"
+          type="month"
+          placeholder="出生时间"
+          :picker-options="sDateOpt"
+          @change="stimeChange">
+        </el-date-picker>
+        <el-date-picker
+          v-model="ee_time"
+          type="month"
+          placeholder="出生时间"
+          :picker-options="eDateOpt"
+          value-format="yyyy-MM"
+          @change="etimeChange">
+        </el-date-picker>
+      </el-form-item>
 			<el-form-item>
-				<el-select v-model="formInline.years" placeholder="年龄段" clearable>
-					<el-option v-for="item in yearsOption" :key="item.name" :label="item.name" :value="item.id">
-					</el-option>
-				</el-select>
+				<el-button type="success" @click="onSubmit" icon="el-icon-search">查询</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="success" @click="onSubmit">查询</el-button>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="downClick()">下载</el-button>
+				<el-button type="primary" @click="downClick()" icon="el-icon-document">下载</el-button>
 			</el-form-item>
 		</el-form>
 		<div id="jpgDom" style="overflow: hidden;">
@@ -25,8 +36,11 @@
 				<p class="chartListTitle">{{item.name}}</p>
 				<div v-for="chart in item.style_" :style="{width:chart.width}" class="chartItem fl" v-loading="chart.hide">
 					<p class="chartTitle" style="text-align: center;">{{chart.title}}</p>
-					<div :id="chart.id" :style="{width:'100%',height:chart.height}/*no*/">
+					<div v-show="!(chart.notdata)" :id="chart.id" :style="{width:'100%',height:chart.height}/*no*/">
 					</div>
+          <div v-show="chart.notdata" class="noDataText" :style="{width:'100%',height:chart.height}/*no*/">
+            暂无数据
+          </div>
 				</div>
 			</div>
 		</div>
@@ -42,10 +56,22 @@
 		data() {
 			return {
 				loading:true,
+        ee_time:null,
 				formInline: {
-					gender: '',
-					years: ''
+          s_time: null,
+          e_time: null,
+					gender: ''
 				},
+        sDateOpt: {
+          disabledDate(time) {
+            return time.getTime() >  new Date()-8.64e7 || time.getTime() < new Date(new Date().getFullYear()-101,12);
+          }
+        },
+        eDateOpt: {
+          disabledDate(time) {
+            return time.getTime() >  new Date()-8.64e7 || time.getTime() < new Date(new Date().getFullYear()-101,12);
+          }
+        },
 				yearsOption: [
 				{id: 1969,name: '70前'},
 				{id: 1970,name: '70后'},
@@ -123,21 +149,24 @@
 							width:'30%',
 							height:'5rem',
 							title:'用户性别比例',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_attr_marriage_love",
 							width:'30%',
 							height:'5rem',
 							title:'婚恋状况',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_attr_offspring",
 							width:'30%',
 							height:'5rem',
 							title:'子嗣状况',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -148,28 +177,32 @@
 							width:'45%',
 							height:'5rem',
 							title:'用户年龄分布',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_attr_identity",
 							width:'45%',
 							height:'5rem',
 							title:'社会身份',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_attr_education",
 							width:'45%',
 							height:'5rem',
 							title:'学历状况',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_attr_income",
 							width:'45%',
 							height:'5rem',
 							title:'年收入',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -180,15 +213,16 @@
 							width:'45%',
 							height:'5rem',
 							title:'运动偏好',
-							hide:true
-							
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_selection_hobby",
 							width:'45%',
 							height:'5rem',
 							title:'兴趣爱好',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -199,14 +233,16 @@
 							width:'45%',
 							height:'5rem',
 							title:'视频付费会员',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"user_selection_information",
 							width:'45%',
 							height:'5rem',
 							title:'资讯获取途径',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				}]
@@ -219,9 +255,25 @@
 			this.posts();
 		},
 		methods: {
-			timeChange(value) {
-				this.time = value;
-			},
+      stimeChange(value){
+        var self = this;
+        this.eDateOpt.disabledDate = function(time) {
+          if(self.e_time!=null){
+            return time.getTime() >  new Date()-8.64e7 || time.getTime() < new Date(self.e_time);
+          }else{
+            return time.getTime() >  new Date()-8.64e7 || time.getTime() < new Date(value);
+          }
+        }
+      },
+      etimeChange(value){
+        this.sDateOpt.disabledDate = function(time) {
+          if(self.s_time!=null){
+            return time.getTime() >  new Date(self.s_time) || time.getTime() < new Date(new Date().getFullYear()-101,12);
+          }else{
+            return time.getTime() >  new Date(value) || time.getTime() < new Date(new Date().getFullYear()-101,12);
+          }
+        }
+      },
 			downClick() {
 				this.getPdf('统计表');
 			},
@@ -229,8 +281,19 @@
 				this.posts();
 			},
 			posts(){
+        var s = this.formInline.s_time;
+        var e = this.ee_time;
+        if(s!=null && e!=null){
+          var arreTime = e.split('-');
+          this.formInline.e_time = new Date(new Date(arreTime[0],arreTime[1],1));
+        }else{
+          this.formInline.s_time = null;
+          this.formInline.e_time = null;
+          this.ee_time = null;
+        }
 				this.loading=true;
 				this.set_loading_show(this.project_dom_item);
+        this.set_not_data(this.project_dom_item);
 				this.getDate(this.select_data[0],0);
 			},
 			getDate(get_data,get_index){
@@ -246,17 +309,17 @@
 							var data_ = data.data.data;
 							var select_ = self.select_data[get_index];
 							var echarts_list=[];
+              var list = self.project_dom_item;
 							for(var i in select_){
 								var dom = document.getElementById(select_arr[i]);
 								if(data_[select_arr[i]].length!=0){
 									var option_ = self.$setoption(data_[select_[i].id],select_[i]);
 									var chartObj = self.$echarts.init(dom, 'light');
 									chartObj.setOption(option_);
-									echarts_list.push(chartObj)
+									echarts_list.push(chartObj);
 								}else{
-									dom.innerHTML='<div class="noDataText">暂无数据</div>';
+                  self.set_notdata(select_[i].id,list);
 								}
-								var list = self.project_dom_item;
 								self.set_loading_hide(select_[i].id,list);
 							}
 							window.addEventListener("resize", () => {
@@ -295,7 +358,28 @@
 						}
 					}
 				}
-			}
+			},
+      set_not_data(list){
+        for(var i=0;i<list.length;i++){
+          var list_ = list[i].style_;
+          for(var z=0;z<list_.length;z++){
+            list_[z].notdata=false;
+          }
+        }
+      },
+      set_notdata(id,list){
+        for(var i=0;i<this.project_dom_item.length;i++){
+          var list_ = this.project_dom_item[i].style_;
+          for(var z=0;z<list_.length;z++){
+            if(list_[z].id == id){
+              console.log(list_[z].notdata);
+              list_[z].notdata=true;
+              console.log(list_[z].notdata);
+              return
+            }
+          }
+        }
+      }
 		}
 	}
 </script>

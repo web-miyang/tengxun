@@ -61,7 +61,8 @@ export default {
 					}
 					return value;
 				};
-				var mapData = [{
+				var mapData = [
+				  {
 						name: '北京',
 						value: 0
 					}, {

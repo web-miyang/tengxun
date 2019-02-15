@@ -17,10 +17,10 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="success" @click="onSubmit">查询</el-button>
+				<el-button type="success" @click="onSubmit" icon="el-icon-search">查询</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" @click="downClick()">下载</el-button>
+				<el-button type="primary" @click="downClick()" icon="el-icon-document">下载</el-button>
 			</el-form-item>
 		</el-form>
 		<div id="jpgDom" style="overflow: hidden;">
@@ -38,8 +38,11 @@
 				<p class="chartListTitle">{{item.name}}</p>
 				<div v-for="chart in item.style_" :style="{width:chart.width}" class="chartItem fl" v-loading="chart.hide">
 					<p class="chartTitle" style="text-align: center;">{{chart.title}}</p>
-					<div :id="chart.id" :style="{width:'100%',height:chart.height}/*no*/">
+					<div v-show="!(chart.notdata)"  :id="chart.id" :style="{width:'100%',height:chart.height}/*no*/">
 					</div>
+          <div v-show="chart.notdata" class="noDataText" :style="{width:'100%',height:chart.height}/*no*/">
+            暂无数据
+          </div>
 				</div>
 			</div>
 		</div>
@@ -146,21 +149,24 @@
 							width:'30%',
 							height:'5rem',
 							title:'用户性别比例',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_attr_marriage_love",
 							width:'30%',
 							height:'5rem',
 							title:'婚恋状况',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_attr_offspring",
 							width:'30%',
 							height:'5rem',
 							title:'子嗣状况',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -171,14 +177,16 @@
 							width:'50%',
 							height:'6rem',
 							title:'用户所在地区分布',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_province_top",
 							width:'40%',
 							height:'6rem',
 							title:'用户量TOP10省份',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -189,28 +197,32 @@
 							width:'45%',
 							height:'6rem',
 							title:'用户年龄分布',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_attr_identity",
 							width:'45%',
 							height:'6rem',
 							title:'社会身份',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_attr_education",
 							width:'45%',
 							height:'6rem',
 							title:'学历状况',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_attr_income",
 							width:'45%',
 							height:'6rem',
 							title:'年收入',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -221,15 +233,16 @@
 							width:'45%',
 							height:'6rem',
 							title:'运动偏好',
-							hide:true
-							
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_selection_hobby",
 							width:'45%',
 							height:'6rem',
 							title:'兴趣爱好',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				},{
@@ -240,14 +253,16 @@
 							width:'45%',
 							height:'6rem',
 							title:'视频付费会员',
-							hide:true
+							hide:true,
+              notdata:false
 						},
 						{
 							id:"project_user_selection_information",
 							width:'45%',
 							height:'6rem',
 							title:'资讯获取途径',
-							hide:true
+							hide:true,
+              notdata:false
 						}
 					]
 				}]
@@ -280,6 +295,7 @@
 			},
 			posts(){
 				this.loading=true;
+        this.set_not_data(this.project_dom_item);
 				this.set_loading_show(this.project_dom_item);
 				this.getDate(this.select_data[0],0);
 			},
@@ -299,6 +315,7 @@
 								self.project_registration_users_count = data_.project_registration_users_count;
 								self.loading=false;
 							}else{
+                var list = self.project_dom_item;
 								var echarts_list=[];
 								for(var i in select_){
 									var dom = document.getElementById(select_arr[i]);
@@ -308,9 +325,8 @@
 										chartObj.setOption(option_);
 										echarts_list.push(chartObj)
 									}else{
-										dom.innerHTML='<div class="noDataText">暂无数据</div>';
+                    self.set_notdata(select_[i].id,list);
 									}
-									var list = self.project_dom_item;
 									self.set_loading_hide(select_[i].id,list);
 								}
 								window.addEventListener("resize", () => {
@@ -379,7 +395,26 @@
 			},
 			productChange(value){
 				this.formInline.product_id=value;
-			}
+			},
+      set_not_data(list){
+        for(var i=0;i<list.length;i++){
+          var list_ = list[i].style_;
+          for(var z=0;z<list_.length;z++){
+            list_[z].notdata=false;
+          }
+        }
+      },
+      set_notdata(id,list){
+        for(var i=0;i<list.length;i++){
+          var list_ = list[i].style_;
+          for(var z=0;z<list_.length;z++){
+            if(list_[z].id == id){
+              list_[z].notdata=true;
+              return
+            }
+          }
+        }
+      }
 		}
 	}
 </script>
