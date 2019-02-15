@@ -1,0 +1,91 @@
+/* 蒙版 */
+.lodding-mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999999;
+  text-align: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+/* ----- 带按钮的弹窗样式   ----- */
+.popup-dialog {
+  position: fixed;
+  max-width: 64%;
+  width: 64%;
+  left: 18%;
+  top:35%;
+  background: #fff;
+  z-index: 999999999;
+  border:none;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 1);
+  font-family: "Microsoft YaHei";
+}
+
+.popup-dialog p.margin-top-15 {
+  margin-top: 30px;
+}
+.popup-dialog .message {
+  margin: 16px 0;
+  padding: 0px 20px;
+  font-size: 28px;
+  color: #111;
+}
+.popup-dialog h3 {
+  display: block;
+  font-size: 28px;
+  color: #666;
+  margin:20px 0;
+  padding: 0px 10px;
+}
+.popup-dialog input {
+  width: 85%;
+  height: 46px;
+  border: #B5B5B5 solid 1px;
+  border-radius:5px;
+  font-size:24px;
+  color: #CCC;
+  padding-left:5px;
+  -webkit-appearance: none;
+  outline:none;
+  margin-top: 5px;
+}
+.popup-dialog .ui-grid-a {
+  line-height:76px;
+  color: #333;
+  display:block;
+  font-size:30px;
+  border-top:#B5B5B5 solid 1px;
+}
+.ui-grid-a.group{
+  margin-top:30px;
+  display:block;
+  text-align: center;
+}
+.ui-grid-a.groupmuti{
+  margin-top:30px;
+  display:flex;
+  text-align: center;
+}
+.popup-dialog .ui-grid-a.hide{
+  display:none;
+}
+.popup-dialog .ui-block-a ,
+.popup-dialog .ui-block-b {
+  -webkit-tap-highlight-color:rgba(0,0,0,0.1);
+  width: 49.8%;
+  float: left;
+}
+.popup-dialog .ui-block-a {
+  border-right:#B5B5B5 solid 1px;
+}

@@ -1,0 +1,150 @@
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+th, td { /* table elements 表格元素 */
+  margin: 0;
+  padding: 0;
+}
+html,body{width: 100%;height: 100%;}
+/* 设置默认字体 */
+address, cite, dfn, em, var {
+  font-style: normal;
+}
+
+/* 将斜体扶正 */
+/*code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } !* 统一等宽字体 *!*/
+small {
+  font-size: 12px;
+}
+
+/* 小于 12px 的中文很难阅读，让 small 正常化 */
+/* 重置列表元素 */
+ul, ol {
+  list-style: none;
+}
+
+/* 重置文本格式元素 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 重置表格元素 */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* 重置 hr */
+hr {
+  border: none;
+  height: 1px;
+}
+
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.cl {zoom: 1;}
+.cl:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.po_ab {
+  position: absolute;
+}
+
+.tl50 {
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.t50 {
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+}
+
+.l50 {
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+}
+.w300 {
+		width: 300px !important;
+	}
+.w500{
+		width: 500px !important;
+}
+.w600{
+		width: 600px !important;
+}
+.pt30{padding-top: 30px;}
+
+html,body,#app{background-color: #e1e5e8;overflow: hidden;}
+/*elementUi 表格相关修改*/
+/*#app .el-table, .el-table__expanded-cell,#app .el-table th, #app .el-table tr{background-color: transparent;}
+#app .el-table__header-wrapper {border-bottom: 1px solid #787878;}
+#app .el-table td, #app .el-table th.is-leaf{border-bottom: 1px solid #bfbfbf;}
+#app .el-table--border, .el-table--group{border:none}
+#app .el-table--border td, #app .el-table--border th, #app .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed{border-right: none;}
+#app .el-table--border::after, #app .el-table--group::after, #app .el-table::before{background-color:transparent;}
+#app .el-table thead{color: #484e5e;}
+#app th.el-table__row.hover-row{background: transparent;}*/
+#app .el-table thead{color: #484e5e;}
+#app th.el-table__row.hover-row{background: transparent;}
+#app .el-table td{padding: 4.5px 0;}
+#app .el-table th{padding:14px 0;}
+/*按钮*/
+#app .el-button--primary.is-plain{background: transparent;border: 1px solid #787878;color: #606266;}
+#app .el-button--success{background: #23ac38;border-color:#23ac38;}
+#app .el-button--primary{background: #1b96d5;border-color:#1b96d5;}
+#app .el-switch.is-checked .el-switch__core{background: #23ac38;border-color:#23ac38;}
+#app .el-button--text{color: #1b96d5;}
+
+/*#409EFF*/
+#app .el-button--primary.is-plain:focus, #app .el-button--primary.is-plain:hover{background: #1B96D5;color: #fff;border:1px solid #1B96D5;}
+#app .el-table__body tr.el-table__row:hover>td{background-color:transparent!important;}
+
+#app .pageList {
+	text-align: center!important;	padding-top: 20px !important;
+}
+/*图表*/
+.chartListTitle{font-size: 22px;color: #484e5e;padding: 20px 0;}
+.chartItem{padding:10px;box-sizing:border-box;background: #fff;margin: 1%;border-radius:5px;box-shadow: 0 0.026667rem 0.16rem 0 rgba(0,0,0,.1);}
+.chartTitle{font-size: 18px;padding:10px 0;color: #2387e5;}
+.noDataText{height: 100%;font-size: 20px;text-align: center;color: #787878;line-height: 4rem;}
+
+/*弹窗按钮*/
+#app .dialog .text_red{color:#e74924;}
+#app .templateTitle,#app .tip-title{
+		color: #787878;
+    font-size: 15px;
+    padding: 0 0 15px;
+    font-weight: 600;
+}
+.el-dialog .el-dialog__header{
+	border-bottom: 1px solid #939399!important;
+}
+.v-modal{
+	opacity: .6!important;
+}
+/*加载框*/
+.el-loading-mask{
+	z-index: 18!important;
+}
+/*提示框*/
+body .el-notification{
+		z-index: 2001!important;
+}
+/*加载页面*/
+body .loadClass{font-size: 0.5rem!important;}
+body .loadClass .el-loading-text{font-size: 0.25rem!important;}
