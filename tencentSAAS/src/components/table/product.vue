@@ -85,11 +85,9 @@
 								var option_ = self.$setoption(data_,self.select_data);
 								var chartObj = self.$echarts.init(dom, 'light');
 								chartObj.setOption(option_);
-								if(data_.length>10){
-									self.height = data_.length*45+'px';
-									dom.style.height = data_.length*45+'px';
-									chartObj.resize(dom);
-								}
+								self.height = (150+data_.length*30)+'px';
+                dom.style.height = (150+data_.length*30)+'px';
+                chartObj.resize(dom);
 								window.addEventListener("resize", () => {
 									chartObj.resize();
 								});

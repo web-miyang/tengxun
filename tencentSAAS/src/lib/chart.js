@@ -377,9 +377,9 @@ export default {
 									normal: {
 										label: {
 											show: true,
-											position: 'insideRight',
+											position: 'right',
 							                textStyle: {
-							                    color: 'white'
+							                    color: aloneColor
 							                },
 											formatter: function(axis){
 												return setShowData(axis);
