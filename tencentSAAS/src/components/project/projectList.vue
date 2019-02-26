@@ -168,6 +168,7 @@
 				var self = this;
 				self.loading=true;
 				self.formInline.page=this.page.index;
+				//console.log(self.time);
 				self.formInline.s_time = self.time[0];
 				self.formInline.e_time = self.time[1];
 				self.post('api/Project/index',self.formInline,

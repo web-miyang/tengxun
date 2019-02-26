@@ -32,6 +32,12 @@
 							<p class="dataNum">{{project_registration_users_count}}</p>
 						</el-card>
 					</el-col>
+          <el-col :span="8">
+            <el-card shadow="always">
+              <p class="dataTxt">报名费合计金额</p>
+              <p class="dataNum">{{project_registration_users_order_total_amount}}</p>
+            </el-card>
+          </el-col>
 				</el-row>
 			</div>
 			<div v-for="item in project_dom_item" class="cl">
@@ -68,8 +74,10 @@
 					product_id:''
 				},
 				project_registration_users_count: 0, //用户报名数
+        project_registration_users_order_total_amount:0,//报名费合计金额
 				select_data:[
-					[{id:'project_registration_users_count'}],
+					[{id:'project_registration_users_count'},
+            {id:'project_registration_users_order_total_amount'}],
 					[{
 						id:"project_user_attr_gender",
 						type:'pie',
@@ -133,12 +141,16 @@
 							type:'bar',
 							Xrotate:'0'
 						}
-					],
+          ],
 					[{
 							id:"project_user_selection_information",
 							type:'bar',
 							Xrotate:'0'
-						}]
+						},{
+            id:"project_registration_users_order_amount_distribution",
+            type:'line',
+            Xrotate:'0'
+          }]
 				],
 				project_dom_item:[
 				{
@@ -265,7 +277,19 @@
               notdata:false
 						}
 					]
-				}]
+				},{
+            name:"报名费分布情况",
+            style_:[
+              {
+                id:"project_registration_users_order_amount_distribution",
+                width:'45%',
+                height:'6rem',
+                title:'报名费分布情况',
+                hide:true,
+                notdata:false
+              }
+            ]
+          }]
 			}
 		},
 		created: function() {
@@ -320,10 +344,14 @@
 								for(var i in select_){
 									var dom = document.getElementById(select_arr[i]);
 									if(data_[select_arr[i]].length!=0){
-										var option_ = self.$setoption(data_[select_[i].id],select_[i]);
-										var chartObj = self.$echarts.init(dom, 'light');
-										chartObj.setOption(option_);
-										echarts_list.push(chartObj)
+									  if(data_[select_arr[i]].length==1&&data_[select_arr[i]][0].name==''){
+                      self.set_notdata(select_[i].id,list);
+                    }else{
+                      var option_ = self.$setoption(data_[select_[i].id],select_[i]);
+                      var chartObj = self.$echarts.init(dom, 'light');
+                      chartObj.setOption(option_);
+                      echarts_list.push(chartObj)
+                    }
 									}else{
                     self.set_notdata(select_[i].id,list);
 									}

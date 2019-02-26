@@ -37,7 +37,16 @@
 					id:"more_user_more_participate_in_time_interval",
 					type:'bar',
 					Xrotate:'0'
-				}],
+				},{
+          id:"user_province_order_average_price",
+          type:'map',
+          Xrotate:'0'
+        },{
+          id:"user_province_order_average_price_top",
+          type:'ybar',
+          Xrotate:'0'
+        }
+        ],
 				project_dom_item:[{
 					name:"用户参与情况分析",
 					style_:[
@@ -70,8 +79,27 @@
 							title:'两次参与活动时间间隔'
 						}
 					]
-				}
-				]
+				},{
+          name:"各地区平均报名费金额",
+          style_:[
+            {
+              id:"user_province_order_average_price",
+              width:'50%',
+              height:'6rem',
+              title:'给地区平均报名费',
+              hide:true,
+              notdata:false
+            },
+            {
+              id:"user_province_order_average_price_top",
+              width:'40%',
+              height:'6rem',
+              title:'平均报名费 Top10 地区',
+              hide:true,
+              notdata:false
+            }
+          ]
+        }]
 			}
 		},
 		mounted() {
@@ -99,7 +127,7 @@
 										var option_ = self.$setoption(data_[chart_list[i].id],chart_list[i]);
 										var chartObj = self.$echarts.init(dom, 'light');
 										chartObj.setOption(option_);
-										echarts_list.push(chartObj)
+										echarts_list.push(chartObj);
 									}else{
 										dom.innerHTML='<div class="noDataText">暂无数据</div>';
 									}

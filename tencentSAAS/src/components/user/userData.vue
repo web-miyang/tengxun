@@ -111,6 +111,7 @@
 		    <el-table-column property="registration_time" label="报名时间" min-width="160" align="center"></el-table-column>
 		    <el-table-column property="project_name" label="项目名称" min-width="120" align="center"></el-table-column>
 		    <el-table-column property="product_name" label="产品名称" min-width="120" align="center"></el-table-column>
+        <el-table-column property="order_price" label="报名费" min-width="100" align="center"></el-table-column>
 		    <el-table-column label="活动时间" min-width="160" align="center">
 		    	<template slot-scope="scope" >
 					<span>{{scope.row.s_time}}<br/>至<br/>{{scope.row.e_time}}</span>
@@ -227,14 +228,15 @@
 		    	self.post('api/user/getOrderByUserId',{user_id:id},
 			  	function(data){0
 			  		if(data.data.code==200){
-			  			self.user_project_msg=data.data.data
+			  			self.user_project_msg=data.data.data;
+              self.user_show = true;
 			  		}else{
 			  			self.$message.error(data.data.msg);
 			  		}
 			  	},function(error){
 			  	});
-		    	self.user_project_msg = self.card_msg1;
-		    	self.user_show = true;
+		    	//self.user_project_msg = self.card_msg1;
+
 			},
 			//查看证件信息
 		    cardMsg(id,name){
@@ -264,7 +266,6 @@
 			  		}
 			  	},function(error){
 			  	});
-				
 			},
 			//分页
 			handleCurrentChange(val) {

@@ -67,7 +67,11 @@
 		},
 		methods:{
 			timeChangeFn(value){
-				this.$emit('timeChange',value)
+			  console.log(value);
+			  if(value==null){
+			    var value1 = '';
+        }else{var value1 = value}
+				this.$emit('timeChange',value1)
 			}
 		}
 

@@ -234,14 +234,17 @@
 								for(var i in select_){
 									var dom = document.getElementById(select_arr[i]);
 									if(data_[select_arr[i]].length!=0){
-										var option_ = self.$setoption(data_[select_[i].id],select_[i]);
-										var chartObj = self.$echarts.init(dom, 'light');
-										chartObj.setOption(option_);
-										echarts_list.push(chartObj)
+									  if(data_[select_arr[i]].length==1&&data_[select_arr[i]][0].name==''){
+                      self.set_notdata(select_[i].id,list);
+                    }else{
+                      var option_ = self.$setoption(data_[select_[i].id],select_[i]);
+                      var chartObj = self.$echarts.init(dom, 'light');
+                      chartObj.setOption(option_);
+                      echarts_list.push(chartObj);
+                    }
 									}else{
                     self.set_notdata(select_[i].id,list);
 									}
-
 									self.set_loading_hide(select_[i].id,list);
 								}
 								window.addEventListener("resize", () => {
