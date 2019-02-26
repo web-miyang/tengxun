@@ -372,7 +372,8 @@
 						}
 					},
 					function(error) {
-						self.$message.error("请求超时");
+				  console.log(error);
+						//self.$message.error("请求超时");
 					});
 			},
 			set_loading_show(list){

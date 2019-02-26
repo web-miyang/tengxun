@@ -13,9 +13,9 @@
 		</el-form>
 		<div id="jpgDom" v-for="chart in project_dom_item.style_" :style="{width:chart.width}" class="chartItem">
 			<p class="chartTitle" style="text-align: center;">{{chart.title}}</p>
-			<div v-show="!(notdata)" :id="chart.id" :style="{width:'100%',height:height+'px'}/*no*/">
+			<div v-show="!(notdata)" :id="chart.id" :style="{width:'100%',height:height}/*no*/">
 			</div>
-      <div v-show="notdata" class="noDataText" :style="{width:'100%',height:chart.height}/*no*/">
+      <div v-show="notdata" class="noDataText" :style="{width:'100%'}/*no*/">
         暂无数据
       </div>
 		</div>
@@ -37,7 +37,7 @@
 				},
 				loading:true,
         notdata:false,
-				height:'600',
+				height:'600px',
 				select_data:{
 					id:"product_users_top",
 					type:'ybar'
@@ -69,7 +69,7 @@
 					this.formInline.s_time=this.time[0];
 					this.formInline.e_time=this.time[1];
 				}else{this.formInline.s_time=new Date().getFullYear()+'-01-01';this.formInline.e_time=new Date().getFullYear()+'-12-31';}
-        self.notdata=false;
+        this.notdata=false;
 				this.getDate();
 			},
 			getDate() {
@@ -80,6 +80,7 @@
 						if(data.data.code == 200) {
 							var data_ = data.data.data.product_users_top;
 							var dom = document.getElementById('product_users_top');
+              //console.log(data_);
 							if(data_.length!=0){
 								var option_ = self.$setoption(data_,self.select_data);
 								var chartObj = self.$echarts.init(dom, 'light');
@@ -93,6 +94,7 @@
 									chartObj.resize();
 								});
 							}else{
+							  console.log
 								self.notdata=true;
 							}
 							self.loading=false;
