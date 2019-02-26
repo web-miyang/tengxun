@@ -110,7 +110,7 @@
 		},
 		methods: {
 			downClick() {
-				this.getPdf('用户参与行为统计');
+				this.getPdf('用户参与行为');
 			},
 			getDate() {
 				var self = this;

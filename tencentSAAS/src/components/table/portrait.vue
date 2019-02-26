@@ -275,7 +275,7 @@
         }
       },
 			downClick() {
-				this.getPdf('统计表');
+				this.getPdf('用户画像');
 			},
 			onSubmit() {
 				this.posts();

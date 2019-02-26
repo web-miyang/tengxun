@@ -62,7 +62,7 @@
 				this.time = value;
 			},
 			downClick() {
-				this.getPdf('统计表');
+				this.getPdf('产品报名分析');
 			},
 			onSubmit() {
 				if(this.time){

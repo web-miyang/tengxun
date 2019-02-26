@@ -312,7 +312,7 @@
 				}
 			},
 			downClick() {
-				this.getPdf('项目分析统计表');
+				this.getPdf('项目分析');
 			},
 			onSubmit() {
 				this.posts();

@@ -192,7 +192,7 @@
 				this.time = value;
 			},
 			downClick() {
-				this.getPdf('统计表');
+				this.getPdf('数据总览');
 			},
 			onSubmit() {
 				if(this.time) {
