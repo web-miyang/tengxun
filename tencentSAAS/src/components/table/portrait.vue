@@ -105,7 +105,7 @@
 						},{
 							id:"user_attr_identity",
 							type:'bar',
-							Xrotate:'40'
+							Xrotate:'55'
 						},{
 							id:"user_attr_education",
 							type:'bar',

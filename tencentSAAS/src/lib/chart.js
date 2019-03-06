@@ -533,6 +533,79 @@ export default {
 							}]
 						}
 						break;
+          case 'linemor':
+            var option = {
+              tooltip: {
+                trigger: 'axis',
+              },
+              dataZoom: [
+                { //Y轴固定,让内容滚动
+                  type: 'slider',
+                  show: false,
+                  xAxisIndex: [0],
+                  start: 1,
+                  zoomLock: false, //锁定区域禁止缩放(鼠标滚动会缩放,所以禁止)
+                },
+                {
+                  type: 'inside',
+                  xAxisIndex: [0],
+                  start: 1,
+                  zoomLock: false, //锁定区域禁止缩放
+                },
+              ],
+              xAxis: {
+                data: setjson(items, 'name'),
+                axisLabel: {
+                  interval: 0,
+                  rotate: Xrotate
+                },
+                axisLine: {
+                  show: false
+                },
+                splitLine: {
+                  lineStyle: {
+                    type: 'dash',
+                  }
+                }
+              },
+              yAxis: {
+                axisLine: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false
+                },
+                splitLine: {
+                  lineStyle: {
+                    type: 'dash',
+                  }
+                }
+              },
+              grid: {
+                containLabel: true
+              },
+              series: [{
+                type: 'line',
+                data: items,
+                barCategoryGap: '50%',
+                emphasis: {
+                  show: true,
+                },
+                itemStyle: {
+                  normal: {
+                    color: aloneColor,
+                    label: {
+                      show: true,
+                      position: 'top',
+                      formatter: function(axis){
+                        return setShowData(axis);
+                      }
+                    }
+                  }
+                },
+              }]
+            }
+            break;
 					case 'map':
 						var mapMax = 0;
 						var mapMin = 0;

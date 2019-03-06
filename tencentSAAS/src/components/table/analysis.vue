@@ -112,7 +112,7 @@
 						},{
 							id:"project_user_attr_identity",
 							type:'bar',
-							Xrotate:'40'
+							Xrotate:'55'
 						},{
 							id:"project_user_attr_education",
 							type:'bar',
@@ -148,8 +148,8 @@
 							Xrotate:'0'
 						},{
             id:"project_registration_users_order_amount_distribution",
-            type:'line',
-            Xrotate:'0'
+            type:'linemor',
+            Xrotate:'50'
           }]
 				],
 				project_dom_item:[
@@ -278,7 +278,7 @@
 						}
 					]
 				},{
-            name:"报名费分布情况",
+            name:"报名费分布情况 (数据较多时可用鼠标缩放滚动图表)",
             style_:[
               {
                 id:"project_registration_users_order_amount_distribution",
@@ -337,6 +337,12 @@
 							var select_ = self.select_data[get_index];
 							if(get_index==0){
 								self.project_registration_users_count = data_.project_registration_users_count;
+
+                if(data_.project_registration_users_order_total_amount==null){
+                  self.project_registration_users_order_total_amount = 0;
+                }else{
+                  self.project_registration_users_order_total_amount = data_.project_registration_users_order_total_amount;
+                }
 								self.loading=false;
 							}else{
                 var list = self.project_dom_item;

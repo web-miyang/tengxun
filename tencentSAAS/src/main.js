@@ -24,9 +24,9 @@ Vue.use(ElementUI);
 Vue.use(VueLocalStorage)
 Vue.prototype.$axios = axios;
 //Vue.prototype.Link = 'http://tx.yf.test.laipao8.cn/';
-Vue.prototype.Link = 'http://tx.jxd.test.laipao8.cn/';
-//Vue.prototype.Link = 'https://crm.sports.qq.com/public/index.php/';
-Vue.prototype.qs = qs
+//Vue.prototype.Link = 'http://tx.jxd.test.laipao8.cn/';
+Vue.prototype.Link = 'https://crm.sports.qq.com/public/index.php/';
+Vue.prototype.qs = qs;
 var VueCookie = require('vue-cookie')
 // Tell Vue to use the plugin
 Vue.use(VueCookie)

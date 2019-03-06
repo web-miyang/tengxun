@@ -2,7 +2,7 @@
 	<div class="uploat_btn">
 		<el-button @click="dialogVisible = true" type="primary" plain size="mini">{{btn_text}}</el-button>
 		<el-dialog title="文件上传" class="upload" :visible.sync="dialogVisible" @close="dialogFn" :modal-append-to-body="false">
-			<el-upload 
+			<el-upload v-show="!down"
 				style="display:inline-block" 
 				class="upload-demo" 
 				ref="upload" 
@@ -45,6 +45,7 @@
 	export default {
 		data() {
 			return {
+        upbtn:true,
 				dialogVisible: false,
 				fileList: [],
 				showList_:[],
